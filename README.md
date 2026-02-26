@@ -12,8 +12,12 @@ Startup with:
 bun start <db-url> <optional:out-dir>
 ```
 
-Build and executable: 
+Build an executable: 
 ```bash
-bun run build;
+bun run build
+```
+
+Run the executable by:
+```bash
 ./target/mongoexport <db-url> <optional:out-dir>
 ```
