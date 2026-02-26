@@ -1,7 +1,7 @@
-import { connect } from "mongoose";
 import { argv } from "bun";
-import {mkdir} from "node:fs/promises";
-import {existsSync} from "node:fs";
+import { connect } from "mongoose";
+import { existsSync } from "node:fs";
+import { mkdir } from "node:fs/promises";
 
 try {
   if(argv.length < 3) {
@@ -21,9 +21,12 @@ try {
     }
   }
   for(const collection of collections){
-    const data = await db?.collection(collection.name).find({}).toArray();
-    Bun.write(OUT_PATH + `/${collection.name}.json`, JSON.stringify(data, null, 2));
+    try {
+      const data = await db?.collection(collection.name).find({}).toArray().catch(e => { throw Error(e); });
+      await Bun.write(OUT_PATH + `/${collection.name}.json`, JSON.stringify(data, null, 2));
+    } catch { console.error("Error while fetching collection:", collection.name) }
   }
+  await conn.connection.close();
 } catch (err){
   console.error(`[${new Date().toLocaleTimeString()}]`, err?.message ?? err);
   process.exit(0);
