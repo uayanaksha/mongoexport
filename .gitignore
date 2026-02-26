@@ -1,3 +1,6 @@
+# executable output directory
+target/
+
 # default output directory
 take_a_dump_here/
 

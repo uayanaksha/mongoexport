@@ -1,12 +1,13 @@
 {
   "name": "mongoexport",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": "true",
   "description": "just provide db url and will export whole database inside local db",
   "author": "Ayanaksha Upadhyaya",
   "type": "module",
   "scripts": {
-    "start": "bun run src/main.ts"
+    "start": "bun run src/main.ts",
+    "build": "bun run src/build.ts",
   },
   "dependencies": {
     "mongoose": "^9.2.2"
