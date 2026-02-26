@@ -23,7 +23,11 @@ try {
   for(const collection of collections){
     try {
       const data = await db?.collection(collection.name).find({}).toArray().catch(e => { throw Error(e); });
-      await Bun.write(OUT_PATH + `/${collection.name}.json`, JSON.stringify(data, null, 2));
+      if((data?.length ?? 0) > 0) await Bun.write(OUT_PATH + `/${collection.name}.json`, JSON.stringify(data, null, 2));
+      const index = await db?.collection(collection.name).listIndexes({}).toArray().catch(e => { throw Error(e); })
+      if((index?.length ?? 0) > 0) await Bun.write(OUT_PATH + `/${collection.name}.index.json`, JSON.stringify(index, null, 2));
+      const searchIndex = await db?.collection(collection.name).listSearchIndexes({}).toArray().catch(e => { throw Error(e); })
+      if((searchIndex?.length ?? 0) > 0) await Bun.write(OUT_PATH + `/${collection.name}.index.json`, JSON.stringify(searchIndex, null, 2));
     } catch { console.error("Error while fetching collection:", collection.name) }
   }
   await conn.connection.close();

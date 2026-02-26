@@ -1,6 +1,6 @@
 {
   "name": "mongoexport",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": "true",
   "description": "just provide db url and will export whole database inside local db",
   "author": "Ayanaksha Upadhyaya",
